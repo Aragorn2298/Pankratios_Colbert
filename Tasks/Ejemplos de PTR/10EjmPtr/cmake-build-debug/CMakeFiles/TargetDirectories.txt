@@ -1,0 +1,3 @@
+C:/Users/rbara/CLionProjects/10EjmPtr/cmake-build-debug/CMakeFiles/10EjmPtr.dir
+C:/Users/rbara/CLionProjects/10EjmPtr/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/rbara/CLionProjects/10EjmPtr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
