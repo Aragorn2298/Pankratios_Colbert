@@ -1,3 +1,0 @@
-C:/Users/rbara/CLionProjects/Tarea1-Algoritmos/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/rbara/CLionProjects/Tarea1-Algoritmos/cmake-build-debug/CMakeFiles/Tarea1_Algoritmos.dir
-C:/Users/rbara/CLionProjects/Tarea1-Algoritmos/cmake-build-debug/CMakeFiles/edit_cache.dir
