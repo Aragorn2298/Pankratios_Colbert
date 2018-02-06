@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/rbara/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/Clientes.cpp" "C:/Users/rbara/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/cmake-build-debug/CMakeFiles/Supermercado_Cola.dir/Clientes.cpp.obj"
-  "C:/Users/rbara/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/Cola.cpp" "C:/Users/rbara/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/cmake-build-debug/CMakeFiles/Supermercado_Cola.dir/Cola.cpp.obj"
-  "C:/Users/rbara/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/main.cpp" "C:/Users/rbara/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/cmake-build-debug/CMakeFiles/Supermercado_Cola.dir/main.cpp.obj"
+  "C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/Clientes.cpp" "C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/cmake-build-debug/CMakeFiles/Supermercado_Cola.dir/Clientes.cpp.obj"
+  "C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/Cola.cpp" "C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/cmake-build-debug/CMakeFiles/Supermercado_Cola.dir/Cola.cpp.obj"
+  "C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/main.cpp" "C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Tareas/Supermercado_Cola/cmake-build-debug/CMakeFiles/Supermercado_Cola.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

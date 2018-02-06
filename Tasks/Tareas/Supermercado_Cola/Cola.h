@@ -14,7 +14,8 @@ public:
     Cola();
     void hacerFila(int cant, string Nom);
     Clientes *facturar();
-    void isEmpty();
+    bool isEmpty();
+    int getCantNodos();
 
 private:
     Clientes *primero, *ultimo;

@@ -19,3 +19,10 @@ void Clientes::setSig(Clientes *nodo) {
 Clientes* Clientes::getSig() {
     return siguiente;
 }
+
+string Clientes::getNombre() {
+    return nombre;
+}
+int Clientes::getTotal() {
+    return total;
+}

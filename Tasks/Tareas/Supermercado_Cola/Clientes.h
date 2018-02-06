@@ -13,7 +13,8 @@ public:
     void imprimir();
     void setSig(Clientes *nodo);
     Clientes *getSig();
-
+    string getNombre();
+    int getTotal();
 
 private:
     int total;
