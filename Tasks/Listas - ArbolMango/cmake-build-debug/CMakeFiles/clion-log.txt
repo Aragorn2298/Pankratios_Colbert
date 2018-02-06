@@ -1,0 +1,4 @@
+C:\Users\xblao\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\173.4548.31\bin\cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\xblao\Documents\GitHub\Pankratios_Colbert\Tasks\Listas - ArbolMango"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Listas - ArbolMango/cmake-build-debug
