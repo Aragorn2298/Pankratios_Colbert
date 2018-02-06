@@ -11,21 +11,22 @@ int main() {
     LaColonia->hacerFila(320, "Diego");
     LaColonia->hacerFila(250, "Gerardito");
 
-    cout<<"Cant: "<<LaColonia->getCantNodos()<<endl;
-
+    cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
+    cout<<""<<endl;
     LaColonia->facturar();
-    cout<<"Cant: "<<LaColonia->getCantNodos()<<endl;
+    cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
+    cout<<""<<endl;
     LaColonia->facturar();
-    cout<<"Cant: "<<LaColonia->getCantNodos()<<endl;
+    cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
+    cout<<""<<endl;
     LaColonia->facturar();
-    cout<<"Cant: "<<LaColonia->getCantNodos()<<endl;
+    cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
+    cout<<""<<endl;
     LaColonia->facturar();
-    cout<<"Cant: "<<LaColonia->getCantNodos()<<endl;
+    cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
+    cout<<""<<endl;
     LaColonia->facturar();
-
-    cout<<"Cant: "<<LaColonia->getCantNodos()<<endl;
-
-
-    std::cout << "Hello, World!" << std::endl;
+    cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
+    cout<<""<<endl;
     return 0;
 }
