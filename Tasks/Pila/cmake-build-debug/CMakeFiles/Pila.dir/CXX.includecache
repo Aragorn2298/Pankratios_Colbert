@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Nodo.cpp
+Nodo.h
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Nodo.h
+
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Nodo.h
+iostream
+-
+
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Pila.cpp
+Pila.h
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Pila.h
+
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Pila.h
+iostream
+-
+Nodo.h
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Nodo.h
+
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/main.cpp
+iostream
+-
+Pila.h
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Pila.h
+Nodo.h
+C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Tasks/Pila/Nodo.h
+
