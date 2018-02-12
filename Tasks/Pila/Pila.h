@@ -11,7 +11,7 @@ using namespace std;
 class Pila {
 public:
     Pila();
-    void apilar(string val);
+    void apilar(Nodo* tmp);
     int desapilar();
     bool isEmpty();
     int getCantNodos();

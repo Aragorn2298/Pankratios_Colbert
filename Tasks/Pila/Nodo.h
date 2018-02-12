@@ -14,6 +14,7 @@ public:
     Nodo *getSig();
     string getVal();
     bool isOp();
+    inline bool isInteger(const std::string & s);
 
 private:
     string valor;

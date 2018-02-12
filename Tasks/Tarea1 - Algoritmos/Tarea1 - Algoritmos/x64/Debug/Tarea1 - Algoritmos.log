@@ -1,4 +1,5 @@
 ﻿  Tarea1 - Algoritmos.cpp
-c:\users\xblao\documents\github\pankratios_colbert\tasks\tarea1 - algoritmos\tarea1 - algoritmos\tarea1 - algoritmos.cpp(51): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
-  LINK : no se encontró C:\Users\xblao\Documents\GitHub\Pankratios_Colbert\Tasks\Tarea1 - Algoritmos\x64\Debug\Tarea1 - Algoritmos.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
+c:\users\xblao\documents\github\pankratios_colbert\tasks\tarea1 - algoritmos\tarea1 - algoritmos\tarea1 - algoritmos.cpp(39): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\xblao\documents\github\pankratios_colbert\tasks\tarea1 - algoritmos\tarea1 - algoritmos\tarea1 - algoritmos.cpp(50): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+c:\users\xblao\documents\github\pankratios_colbert\tasks\tarea1 - algoritmos\tarea1 - algoritmos\tarea1 - algoritmos.cpp(82): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
   Tarea1 - Algoritmos.vcxproj -> C:\Users\xblao\Documents\GitHub\Pankratios_Colbert\Tasks\Tarea1 - Algoritmos\x64\Debug\Tarea1 - Algoritmos.exe

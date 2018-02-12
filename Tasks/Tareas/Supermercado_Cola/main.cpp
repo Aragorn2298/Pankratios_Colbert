@@ -13,19 +13,19 @@ int main() {
 
     cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
     cout<<""<<endl;
-    LaColonia->facturar();
+    LaColonia->facturar()->imprimir();
     cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
     cout<<""<<endl;
-    LaColonia->facturar();
+    LaColonia->facturar()->imprimir();
     cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
     cout<<""<<endl;
-    LaColonia->facturar();
+    LaColonia->facturar()->imprimir();
     cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
     cout<<""<<endl;
-    LaColonia->facturar();
+    LaColonia->facturar()->imprimir();
     cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
     cout<<""<<endl;
-    LaColonia->facturar();
+    LaColonia->facturar()->imprimir();
     cout<<"Cant Clientes: "<<LaColonia->getCantNodos()<<endl;
     cout<<""<<endl;
     return 0;

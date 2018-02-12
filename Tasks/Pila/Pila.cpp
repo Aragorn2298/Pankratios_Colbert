@@ -7,9 +7,7 @@ Pila::Pila() {
     primero=NULL;
     cantNodos=0;
 }
-void Pila::apilar(string val) {
-    Nodo* tmp;
-    tmp = new Nodo(val);
+void Pila::apilar(Nodo* tmp) {
     if(tmp->isOp()){
         int n1,n2;
 
@@ -17,19 +15,19 @@ void Pila::apilar(string val) {
         n2=stoi(primero->getVal());
         int newVal=0;
 
-        if(val=="+"){
+        if(tmp->getVal()=="+"){
             newVal=n1+n2;
-        }else if(val=="-"){
+        }else if(tmp->getVal()=="-"){
             newVal=n1-n2;
-        }else if(val=="*"){
+        }else if(tmp->getVal()=="*"){
             newVal=n1*n2;
-        }else if(val=="/"){
+        }else if(tmp->getVal()=="/"){
             newVal=n1/n2;
         }
 
         desapilar();
         desapilar();
-        apilar(to_string(newVal));
+        apilar(new Nodo(to_string(newVal)));
     }else{
         tmp->setSig(primero);
         primero = tmp;

@@ -7,15 +7,15 @@ using namespace std;
 int main() {
     Pila * pilita = new Pila();
 
-    pilita->apilar("5");
-    pilita->apilar("1");
-    pilita->apilar("2");
-    pilita->apilar("+");
-    pilita->apilar("4");
-    pilita->apilar("*");
-    pilita->apilar("+");
-    pilita->apilar("3");
-    pilita->apilar("-");
+    pilita->apilar(new Nodo("5"));
+    pilita->apilar(new Nodo("1"));
+    pilita->apilar(new Nodo("2"));
+    pilita->apilar(new Nodo("+"));
+    pilita->apilar(new Nodo("4"));
+    pilita->apilar(new Nodo("*"));
+    pilita->apilar(new Nodo("+"));
+    pilita->apilar(new Nodo("3"));
+    pilita->apilar(new Nodo("-"));
 
     pilita->mostrar();
 
