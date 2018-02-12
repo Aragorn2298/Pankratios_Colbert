@@ -1,7 +1,7 @@
-
-import javax.swing.JOptionPane;
 import twitter4j.*;
-
+import java.io.*;
+import java.util.List;
+import javax.swing.JOptionPane;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,6 +17,39 @@ public class HashtaggerUI extends javax.swing.JFrame {
     /**
      * Creates new form HashtaggerUI
      */
+    private static void storeJSON(String rawJSON, String fileName) throws IOException {
+        FileOutputStream fos = null;
+        OutputStreamWriter osw = null;
+        BufferedWriter bw = null;
+        try {
+            fos = new FileOutputStream(fileName);
+            osw = new OutputStreamWriter(fos, "UTF-8");
+            bw = new BufferedWriter(osw);
+            bw.write(rawJSON);
+            bw.flush();
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException ignore) {
+                }
+            }
+            if (osw != null) {
+                try {
+                    osw.close();
+                } catch (IOException ignore) {
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException ignore) {
+                }
+            }
+        }
+    }
+    
+    
     public HashtaggerUI() {
         initComponents();
     }
@@ -33,6 +66,10 @@ public class HashtaggerUI extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,30 +87,49 @@ public class HashtaggerUI extends javax.swing.JFrame {
             }
         });
 
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(69, 69, 69)
-                        .addComponent(jButton2)
-                        .addGap(0, 151, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextField5)
+                    .addComponent(jTextField4)
+                    .addComponent(jTextField2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(326, 326, 326)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -83,34 +139,60 @@ public class HashtaggerUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{    
             Twitter twitter = TwitterFactory.getSingleton();
-            JOptionPane.showMessageDialog(null, "Logged in");
+            //JOptionPane.showMessageDialog(null, "Logged in");
             java.util.List<Status> statusList = twitter.getHomeTimeline();
             Status latest = statusList.get(0);
             String latestString = latest.getUser().getName() + ":" + latest.getText();
             jTextField1.setText(latestString);
+            
+            new File("statuses").mkdir();
+            String rawJSON = TwitterObjectFactory.getRawJSON(latest);
+            String fileName = "statuses/" + latest.getId() + ".json";
+            try{
+                storeJSON(rawJSON, fileName);
+            }catch(IOException e){
+                JOptionPane.showMessageDialog(null, "Failed to store Json");
+            }
+        
         }catch(TwitterException e){
             JOptionPane.showMessageDialog(null, "Login Failed");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Twitter twitter = new TwitterFactory().getInstance();
         try {
-            Query query = new Query("source:Honduras");
+            Twitter twitter = TwitterFactory.getSingleton();
+            Query query = new Query("");
+            query.count(5);
             QueryResult result;
-            do {
-                result = twitter.search(query);
-                java.util.List<Status> tweets = result.getTweets();
-                for (Status tweet : tweets) {
-                    System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-                }
-            } while ((query = result.nextQuery()) != null);
+                
+            result = twitter.search(query);
+            List<Status> tweets = result.getTweets();
+            
+            String [] printList = new String [5];
+            String fin="";
+            for(int i=0;i<5;i++){
+                Status tweet = tweets.get(i);
+                fin="@" + tweet.getUser().getName() + ": " + tweet.getText();
+                printList[i]=fin;
+            }
+            jTextField1.setText(printList[0]);
+            jTextField2.setText(printList[1]);
+            jTextField3.setText(printList[2]);
+            jTextField4.setText(printList[3]);
+            jTextField5.setText(printList[4]);
+            
+            
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
             System.exit(-1);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,5 +233,9 @@ public class HashtaggerUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

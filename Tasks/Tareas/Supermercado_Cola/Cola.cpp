@@ -30,7 +30,7 @@ Clientes * Cola::facturar() {
         temp=0;
         cantNodos--;
 
-        clienteReturn->imprimir();
+        //clienteReturn->imprimir();
         return clienteReturn;
     }
 }
