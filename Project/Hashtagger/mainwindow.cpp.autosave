@@ -1,0 +1,42 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+using namespace std;
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    dirTweets= QDir::currentPath();
+    dirTweets.cd("src");
+    dirTweets.cd("Tweets");
+    
+    ui->setupUi(this);
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_getTweetsBtn_clicked()
+{
+    //cout<<QDir::toStdString()<<endl;
+    QDir dirJar = QDir::currentPath();
+    dirJar.cd("src");
+
+    string searchString = "java -jar HashtaggerJava.jar " + ui->searchStringLn->text().toStdString();
+    const char * c = searchString.c_str();
+    //QDir::setCurrent("C:/Users/xblao/Documents/GitHub/Pankratios_Colbert/Project/Hashtagger/src");
+    QDir::setCurrent(dirJar.path());
+    system(c);
+}
+void MainWindow::updateViews()
+{
+    vector<string> folders;
+    for(auto& p : filesystem::recursive_directory_iterator(dirTweets.path().toStdString())){
+        if(p.status().type() == filesystem::file_type::directory){
+            folders.push_back(p.path().string());
+        }
+    }
+}

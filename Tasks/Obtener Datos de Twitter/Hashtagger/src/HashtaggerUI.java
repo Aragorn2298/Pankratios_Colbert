@@ -1,6 +1,7 @@
 import twitter4j.*;
 import java.io.*;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.swing.JOptionPane;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -145,6 +146,7 @@ public class HashtaggerUI extends javax.swing.JFrame {
             String latestString = latest.getUser().getName() + ":" + latest.getText();
             jTextField1.setText(latestString);
             
+            String folderName;
             new File("statuses").mkdir();
             String rawJSON = TwitterObjectFactory.getRawJSON(latest);
             String fileName = "statuses/" + latest.getId() + ".json";
@@ -161,21 +163,40 @@ public class HashtaggerUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
+            String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+            String queryString;
+            queryString = "Honduras";
             Twitter twitter = TwitterFactory.getSingleton();
-            Query query = new Query("");
-            query.count(5);
+            Query query = new Query(queryString);
+            query.count(10);
             QueryResult result;
                 
             result = twitter.search(query);
             List<Status> tweets = result.getTweets();
             
-            String [] printList = new String [5];
+            String folderName = queryString+date;
+            new File(folderName).mkdir();
+            
+            String [] printList = new String [100];
             String fin="";
             for(int i=0;i<5;i++){
                 Status tweet = tweets.get(i);
                 fin="@" + tweet.getUser().getName() + ": " + tweet.getText();
                 printList[i]=fin;
             }
+            
+            for(int i=0;i<10;i++){
+                Status tweet = tweets.get(i);
+
+                String rawJSON = TwitterObjectFactory.getRawJSON(tweet);
+                String fileName = queryString + date + "/" + queryString + tweet.getId() + "_" + date + ".json";
+                try{
+                    storeJSON(rawJSON, fileName);
+                }catch(IOException e){
+                    JOptionPane.showMessageDialog(null, "Failed to store Json");
+                }
+            }
+            
             jTextField1.setText(printList[0]);
             jTextField2.setText(printList[1]);
             jTextField3.setText(printList[2]);
