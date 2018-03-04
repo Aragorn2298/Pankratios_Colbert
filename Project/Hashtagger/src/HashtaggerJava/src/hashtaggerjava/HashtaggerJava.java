@@ -51,32 +51,33 @@ public class HashtaggerJava {
     }
     
     public static void main(String[] args) {
-        String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        
+        String date = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(Calendar.getInstance().getTime());
         String queryString;
         queryString = args[0];
         
         System.out.print("Busqueda: " + args[0]);
         
-        String folderName = queryString+date;
+        String folderName = queryString;
         
         try {
             Twitter twitter = TwitterFactory.getSingleton();
             Query query = new Query(queryString);
+            query.setResultType(Query.ResultType.recent);
             query.count(100);
             QueryResult result;
                 
             result = twitter.search(query);
             List<Status> tweets = result.getTweets();
-            new File("Tweets/"+folderName).mkdir();
+            new File("Tweets/"+folderName+"_"+date).mkdir();
             
             for(int i=0;i<100;i++){
                 Status tweet = tweets.get(i);
-
                 String rawJSON = TwitterObjectFactory.getRawJSON(tweet);
-                String fileName = "Tweets/"+folderName+ "/" + queryString + tweet.getId() + "_" + date + ".json";
+                String dirName = "Tweets/"+folderName+"_"+date+ "/"; 
+                String fileName = queryString + "_" + tweet.getId() + "_" + date + ".json";
+                String fullName = dirName+fileName;
                 try{
-                    storeJSON(rawJSON, fileName);
+                    storeJSON(rawJSON, fullName);
                 }catch(IOException e){
                     JOptionPane.showMessageDialog(null, "Failed to store Json");
                 }

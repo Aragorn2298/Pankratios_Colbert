@@ -39,7 +39,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(427, 287);
+        MainWindow->resize(748, 282);
         QFont font;
         font.setFamily(QStringLiteral("System"));
         font.setPointSize(10);
@@ -55,9 +55,16 @@ public:
         foldersView = new QListView(centralWidget);
         foldersView->setObjectName(QStringLiteral("foldersView"));
         foldersView->setGeometry(QRect(20, 10, 221, 192));
+        QFont font1;
+        font1.setFamily(QStringLiteral("System"));
+        font1.setPointSize(8);
+        font1.setBold(true);
+        font1.setWeight(75);
+        foldersView->setFont(font1);
         jsonsView = new QListView(centralWidget);
         jsonsView->setObjectName(QStringLiteral("jsonsView"));
-        jsonsView->setGeometry(QRect(250, 10, 161, 231));
+        jsonsView->setGeometry(QRect(250, 10, 481, 231));
+        jsonsView->setFont(font1);
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

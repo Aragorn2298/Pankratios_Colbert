@@ -6,7 +6,15 @@
 #include <QString>
 #include <QDebug>
 #include <iostream>
+#include <QStringList>
+#include <QStringListModel>
+#include <QAbstractItemView>
+#include <stdio.h>
+#include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonObject>
 
+using namespace std;
 namespace Ui {
 class MainWindow;
 }
@@ -19,8 +27,27 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QDir dirTweets;
+    QDir dirTweetJson;
+    QStringListModel *modelFolders;
+    QStringListModel *modelJson;
+    QStringList folderList;
+    QStringList jsonList;
+    vector<QString> jsonPathList;
+
+    void updateViews();
+    QString getIndex(const QModelIndex &index);
+    void updateJsonView(QString str);
+    void setTweetsPath();
+    void parseJson(QString path);
+
 private slots:
     void on_getTweetsBtn_clicked();
+
+    void on_foldersView_clicked(const QModelIndex &index);
+
+    void on_foldersView_activated(const QModelIndex &index);
+
+    void on_jsonsView_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

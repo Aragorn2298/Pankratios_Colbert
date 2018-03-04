@@ -165,11 +165,13 @@ public class HashtaggerUI extends javax.swing.JFrame {
         try {
             String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
             String queryString;
-            queryString = "Honduras";
+            queryString = "Unitec";
             Twitter twitter = TwitterFactory.getSingleton();
             Query query = new Query(queryString);
+            query.setResultType(Query.ResultType.recent);
             query.count(10);
             QueryResult result;
+            
                 
             result = twitter.search(query);
             List<Status> tweets = result.getTweets();
@@ -181,21 +183,11 @@ public class HashtaggerUI extends javax.swing.JFrame {
             String fin="";
             for(int i=0;i<5;i++){
                 Status tweet = tweets.get(i);
-                fin="@" + tweet.getUser().getName() + ": " + tweet.getText();
+                fin="@" + tweet.getUser().getScreenName() + ": " + tweet.getText();
                 printList[i]=fin;
             }
             
-            for(int i=0;i<10;i++){
-                Status tweet = tweets.get(i);
 
-                String rawJSON = TwitterObjectFactory.getRawJSON(tweet);
-                String fileName = queryString + date + "/" + queryString + tweet.getId() + "_" + date + ".json";
-                try{
-                    storeJSON(rawJSON, fileName);
-                }catch(IOException e){
-                    JOptionPane.showMessageDialog(null, "Failed to store Json");
-                }
-            }
             
             jTextField1.setText(printList[0]);
             jTextField2.setText(printList[1]);
