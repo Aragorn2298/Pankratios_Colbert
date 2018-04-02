@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     modelFolders->setStringList(folderList);
     ui->foldersView->setModel(modelFolders);
+    ui->foldersView->setEditTriggers(QListView::NoEditTriggers);
     updateViews();
 }
 
@@ -50,9 +51,7 @@ void MainWindow::updateJsonView(QString str){
     setTweetsPath();
     dirTweetJson.cd(str);
 
-    jsonList=dirTweetJson.entryList(QDir::AllEntries | QDir::Files | QDir::NoDotAndDotDot);
-
-    parseJson(dirTweetJson.path());
+    jsonList=dirTweetJson.entryList(QDir::AllEntries | QDir::Files | QDir::NoDotAndDotDot,QDir::Time | QDir::Reversed);
 
     modelJson->setStringList(jsonList);
     ui->jsonsView->setModel(modelJson);
@@ -73,21 +72,10 @@ void MainWindow::setTweetsPath(){
 }
 void MainWindow::on_foldersView_activated(const QModelIndex &index){}
 
-void MainWindow::parseJson(QString path){
-    for (int i = 0; i < jsonList.size(); ++i){
-        QString filePath = path + "/" + jsonList.at(i).toLocal8Bit().constData();
-        jsonPathList.push_back(filePath);
-        //cout << path.toStdString() << "/"<< jsonList.at(i).toLocal8Bit().constData() << endl;
-    }
-}
-
-void MainWindow::on_jsonsView_clicked(const QModelIndex &index)
-{
-    QMessageBox msgBox;
+void MainWindow::parseJson(const QModelIndex &index){
     QString tweetFileName = index.data(Qt::DisplayRole).toString();
     QString file_path = dirTweetJson.path()+"/"+tweetFileName;
 
-    //////////////////////////////////
     QFile file_obj(file_path);
     if(!file_obj.open(QIODevice::ReadOnly)){
         qDebug()<<"Failed to open "<<file_path;
@@ -118,14 +106,113 @@ void MainWindow::on_jsonsView_clicked(const QModelIndex &index)
         exit(4);
     }
 
-    QVariantMap json_map = json_obj.toVariantMap();
-    QVariantMap user_map = json_map["user"].toMap();
-    ///////////////////////////////
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(file_path.toLocal8Bit());
-    QJsonObject jsonObj = jsonDoc.object();
-    QString tweetStr = jsonObj["id"].toString();
+    json_map = json_obj.toVariantMap();
+    user_map = json_map["user"].toMap();
+}
 
+void MainWindow::on_jsonsView_clicked(const QModelIndex &index)
+{
+    clear();
+    clickedTweet=index.data(Qt::DisplayRole).toString();
+    parseJson(index);
+    clickedTweetText=json_map["text"].toString();
+}
 
-    msgBox.setText("@"+user_map["screen_name"].toString()+": "+json_map["text"].toString());
+void MainWindow::on_jsonsView_doubleClicked(const QModelIndex &index)
+{
+    QMessageBox msgBox;
+    parseJson(index);
+    QString name="<font color=\"Black\">"
+                    "<b>"+
+                        user_map["name"].toString()+
+                    "</b>"
+                 "</font>";
+
+    QString screen_name="<font color=\"Gray\">"
+                            "<small>"
+                                "@"+user_map["screen_name"].toString()+
+                            "</small>"
+                        "</font>";
+
+    QString text="<p>"
+                    "<font color=\"Black\">"+
+                        json_map["text"].toString()+
+                    "</font>"
+                 "</p>";
+
+    QString created_at="<p style=""text-align:right;"">"
+                           "<font color=\"Black\">"
+                               "<small>"+
+                                    json_map["created_at"].toString()+
+                               "</small>"
+                           "</font>"
+                       "</p>";
+
+    msgBox.setText(name+"  "+screen_name+
+                   text+
+                   created_at);
     msgBox.exec();
+}
+
+void MainWindow::on_singleTweetBtn_clicked()
+{
+    /*
+    string input=clickedTweet.toStdString();
+    istringstream ss(input);
+    string token;
+    string printString="";
+
+    while(getline(ss,token,'_')){
+        printString=token;
+        break;
+    }
+    */
+    vector<string> words=separateTweet();
+    int posX=0;
+    int cont=2;
+    for(int i=0; i<words.size();i++){
+        if(cont%2==0){
+            test.agregarVertice(100, posX, 150, words.at(i));
+        }else{
+            test.agregarVertice(100, posX, 250, words.at(i));
+        }
+        cont++;
+        posX+=50;
+    }
+    for(int i=1; i<=words.size();i++){
+
+        test.agregarArista(100, i, i+1);
+    }
+    test.draw();
+    test.show();
+}
+
+void MainWindow::on_drawGraphBtn_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Aqui pondria el grafo de los 100 tweets.....SI SUPIERA COMO HACERLO >:v");
+    msgBox.exec();
+}
+vector<string> MainWindow::separateTweet(){
+    string s = clickedTweetText.toStdString();
+    string str=s;
+    string buf;
+    stringstream ss(str);
+
+    vector<string> words;
+
+    while(ss >> buf){
+        words.push_back(buf);
+    }
+    return words;
+}
+void MainWindow::clear(){
+    //test.reset();
+    clickedTweetText="";
+    test.resetCachedContent();
+    test.scene->clear();
+    test.items().clear();
+    test.scene->update();
+    test.update();
+    test.close();
 }

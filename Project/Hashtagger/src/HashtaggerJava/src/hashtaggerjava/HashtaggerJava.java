@@ -9,6 +9,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.JOptionPane;
+import twitter4j.conf.ConfigurationBuilder;
 /**
  *
  * @author xblao
@@ -60,8 +61,18 @@ public class HashtaggerJava {
         String folderName = queryString;
         
         try {
-            Twitter twitter = TwitterFactory.getSingleton();
-            Query query = new Query(queryString);
+            ConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.setDebugEnabled(true);
+            
+            cb.setJSONStoreEnabled(true);
+            cb.setOAuthConsumerKey("lGCDrXDJAcJyO6I4sfmGqLwwl");
+            cb.setOAuthConsumerSecret("RSFpANJDVZYLtrn6wGylXju7aYb1I3HiXvRRZ7AAjz1BvT1z0r");
+            cb.setOAuthAccessToken("915421665869352961-oCwW75I30fMxsXT1vEO8KsRFVYSiV0J");
+            cb.setOAuthAccessTokenSecret("BTPNQe4Xr8NWEDfQSytrIaRlc33EZALoqnj6XxKK7zEWN");
+            TwitterFactory tf = new TwitterFactory(cb.build());
+            Twitter twitter = tf.getInstance();
+            //Twitter twitter = TwitterFactory.getSingleton();
+            Query query = new Query(queryString + "+exclude:retweets");
             query.setResultType(Query.ResultType.recent);
             query.count(100);
             QueryResult result;

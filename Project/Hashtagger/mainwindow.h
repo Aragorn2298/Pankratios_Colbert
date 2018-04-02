@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include "myclickablewidget.h"
+#include <sstream>
 
 using namespace std;
 namespace Ui {
@@ -32,13 +34,20 @@ public:
     QStringListModel *modelJson;
     QStringList folderList;
     QStringList jsonList;
-    vector<QString> jsonPathList;
+    QVariantMap json_map;
+    QVariantMap user_map;
+
+    MyClickableWidget test;
+    QString clickedTweet;
+    QString clickedTweetText;
 
     void updateViews();
     QString getIndex(const QModelIndex &index);
     void updateJsonView(QString str);
     void setTweetsPath();
-    void parseJson(QString path);
+    void parseJson(const QModelIndex &index);
+    vector<string> separateTweet();
+    void clear();
 
 private slots:
     void on_getTweetsBtn_clicked();
@@ -48,6 +57,12 @@ private slots:
     void on_foldersView_activated(const QModelIndex &index);
 
     void on_jsonsView_clicked(const QModelIndex &index);
+
+    void on_singleTweetBtn_clicked();
+
+    void on_drawGraphBtn_clicked();
+
+    void on_jsonsView_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

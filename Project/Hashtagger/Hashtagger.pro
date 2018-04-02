@@ -25,10 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    myclickablewidget.cpp \
+    verticeclass.cpp \
+    grafoclass.cpp \
+    aristaclass.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    myclickablewidget.h \
+    verticeclass.h \
+    grafoclass.h \
+    aristaclass.h
 
 FORMS += \
         mainwindow.ui
