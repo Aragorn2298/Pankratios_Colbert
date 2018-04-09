@@ -15,7 +15,10 @@
 #include <QJsonObject>
 #include "myclickablewidget.h"
 #include <sstream>
-
+#include "graphwindow.h"
+#include <fstream>
+#include "verticeclass.h"
+#include "aristaclass.h"
 using namespace std;
 namespace Ui {
 class MainWindow;
@@ -40,6 +43,11 @@ public:
     MyClickableWidget test;
     QString clickedTweet;
     QString clickedTweetText;
+    vector<string> excludedWords;
+    string mainNodo;
+
+    GraphWindow singleGraph;
+    GraphWindow window;
 
     void updateViews();
     QString getIndex(const QModelIndex &index);
@@ -47,6 +55,8 @@ public:
     void setTweetsPath();
     void parseJson(const QModelIndex &index);
     vector<string> separateTweet();
+    vector<string> deleteWords(vector<string> v);
+    vector<VerticeClass> checkDupes(vector<VerticeClass> v);
     void clear();
 
 private slots:

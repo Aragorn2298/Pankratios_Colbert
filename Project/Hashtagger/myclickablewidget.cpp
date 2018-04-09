@@ -22,9 +22,9 @@ MyClickableWidget::MyClickableWidget(QWidget *parent)
     contName=1;
 
 }
-void MyClickableWidget::agregarVertice(int p, int x, int y, string n)
+void MyClickableWidget::agregarVertice(int p, int x, int y, string n, bool mn)
 {
-    VerticeClass* nuevo = new VerticeClass(p,x,y,n);
+    VerticeClass* nuevo = new VerticeClass(p,x,y,n,mn);
     grafito.vertices.push_back(nuevo);
     QRectF vertNuevo(x,y, 75.0, 75.0);
     vertices.push_back(vertNuevo);
@@ -39,6 +39,10 @@ void MyClickableWidget::agregarVertice(int p, int x, int y, string n)
     scene->update();
     update();
     draw();
+}
+void MyClickableWidget::agregarVertice(VerticeClass* nuevo)
+{
+    agregarVertice(nuevo->peso,nuevo->ex,nuevo->ey,nuevo->name, nuevo->mainNodo);
 }
 void MyClickableWidget::agregarArista(int p, int from, int to){
     if(grafito.vertices[from-1]!=NULL && grafito.vertices[to-1]!=NULL)
@@ -86,7 +90,9 @@ void MyClickableWidget::draw(){
             int xb = aristas[p].width();
             int yb = aristas[p].height();
             penArista.setColor(Qt::lightGray);
+            scene->addEllipse(xa+10,ya+10,10,10,pen,QBrush(Qt::lightGray,Qt::SolidPattern));
             scene->addLine(xa+37,ya+37,xb+37,yb+37, penArista);
+
         }
     }
     for(unsigned int c=0;c<vertices.size();c++)
@@ -101,11 +107,14 @@ void MyClickableWidget::draw(){
             pen.setColor(Qt::black);
             scene->addEllipse(vertices.at(c),pen,QBrush(Qt::lightGray,Qt::SolidPattern));
             QGraphicsTextItem* text;
-            string namem = grafito.vertices.at(c)->name;
-            QString qstr = QString::fromStdString(namem);
-            text= scene->addText(qstr,QFont("System", 11));
-            text->setTextWidth(74);
-            text->setPos(vertices.at(c).x(), vertices.at(c).y()+20);
+            QGraphicsTextItem* text2;
+            QString qstr = QString::fromStdString(grafito.vertices.at(c)->name);
+            QString qstr2 = QString::fromStdString(to_string(grafito.vertices.at(c)->peso));
+            text= scene->addText(qstr,QFont("System", 8));
+            text->setTextWidth(65);
+            text->setPos(vertices.at(c).x()+5, vertices.at(c).y()+10);
+            text2= scene->addText(qstr2,QFont("System", 8, 10, true));
+            text2->setPos(vertices.at(c).x()+30, vertices.at(c).y()+55);
         }
     }
     scene->update();

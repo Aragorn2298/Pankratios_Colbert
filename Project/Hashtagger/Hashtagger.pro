@@ -29,14 +29,16 @@ SOURCES += \
     myclickablewidget.cpp \
     verticeclass.cpp \
     grafoclass.cpp \
-    aristaclass.cpp
+    aristaclass.cpp \
+    graphwindow.cpp
 
 HEADERS += \
         mainwindow.h \
     myclickablewidget.h \
     verticeclass.h \
     grafoclass.h \
-    aristaclass.h
+    aristaclass.h \
+    graphwindow.h
 
 FORMS += \
         mainwindow.ui

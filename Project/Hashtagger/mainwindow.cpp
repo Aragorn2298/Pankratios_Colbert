@@ -12,6 +12,19 @@ MainWindow::MainWindow(QWidget *parent) :
     dirTweets.cd("Tweets");
     setTweetsPath();
 
+    ifstream dict_file("exclude.txt");
+    string line;
+
+    while(std::getline(dict_file, line))
+    {
+        cout<<line;
+        excludedWords.push_back(line);
+    }
+    /*
+    for(int i=0;i<excludedWords.size();i++){
+        cout<<excludedWords.at(i)<<endl;
+    }*/
+
     ui->setupUi(this);
     modelFolders = new QStringListModel(this);
     modelJson = new QStringListModel(this);
@@ -34,7 +47,9 @@ void MainWindow::on_getTweetsBtn_clicked()
     QDir dirJar = QDir::currentPath();
     dirJar.cd("src");
 
-    string searchString = "java -jar HashtaggerJava.jar " + ui->searchStringLn->text().toStdString();
+
+
+    string searchString = "java -jar HashtaggerJava.jar " + ui->searchStringLn->text().toStdString()+" "+to_string(ui->tweetsQuantity->value());
     const char * c = searchString.c_str();
     QDir::setCurrent(dirJar.path());
     system(c);
@@ -116,6 +131,9 @@ void MainWindow::on_jsonsView_clicked(const QModelIndex &index)
     clickedTweet=index.data(Qt::DisplayRole).toString();
     parseJson(index);
     clickedTweetText=json_map["text"].toString();
+
+    string mystr = clickedTweet.toStdString().substr(0, clickedTweet.toStdString().find("_", 0));
+    mainNodo=mystr;
 }
 
 void MainWindow::on_jsonsView_doubleClicked(const QModelIndex &index)
@@ -156,42 +174,79 @@ void MainWindow::on_jsonsView_doubleClicked(const QModelIndex &index)
 
 void MainWindow::on_singleTweetBtn_clicked()
 {
-    /*
-    string input=clickedTweet.toStdString();
-    istringstream ss(input);
-    string token;
-    string printString="";
-
-    while(getline(ss,token,'_')){
-        printString=token;
-        break;
-    }
-    */
     vector<string> words=separateTweet();
+    vector<string> wordsFinal=deleteWords(words);
+
     int posX=0;
     int cont=2;
-    for(int i=0; i<words.size();i++){
+    for(int i=0; i<wordsFinal.size();i++){
         if(cont%2==0){
-            test.agregarVertice(100, posX, 150, words.at(i));
+            test.agregarVertice(0,posX, 150, wordsFinal.at(i),false);
         }else{
-            test.agregarVertice(100, posX, 250, words.at(i));
+            test.agregarVertice(0,posX, 250, wordsFinal.at(i),false);
         }
         cont++;
         posX+=50;
     }
-    for(int i=1; i<=words.size();i++){
+    for(int i=1; i<=wordsFinal.size();i++){
 
         test.agregarArista(100, i, i+1);
     }
-    test.draw();
     test.show();
 }
 
 void MainWindow::on_drawGraphBtn_clicked()
 {
+    /*
+    vector<string> words=separateTweet();
+    vector<string> wordsFinal=deleteWords(words);
+
+    vector<VerticeClass*> vertVector;
+    vector<AristaClass*> ariVector;
+
+    int cant=wordsFinal.size()-1;
+    int x=300;
+    int y=100;
+
+    for(int i=0; i<wordsFinal.size();i++){
+        if(wordsFinal.at(i)==mainNodo){
+            vertVector.push_back(new VerticeClass(0, 100, 250, wordsFinal.at(i), true));
+        }else{
+            vertVector.push_back(new VerticeClass(0, x, y, wordsFinal.at(i), false));
+            //x+=50;
+            y+=50;
+        }
+    }
+
+    for(int i=0; i<vertVector.size();i++){
+        test.agregarVertice(vertVector.at(i));
+    }
+
+    for(int i=0; i<vertVector.size();i++){
+        if(vertVector.at(i)->mainNodo){
+            for(int j=1; j<=wordsFinal.size();j++){
+
+                test.agregarArista(100, i, j+1);
+            }
+        }
+    }
+
+    for(int i=1; i<=wordsFinal.size();i++){
+
+        test.agregarArista(100, i, i+1);
+    }
+    test.show();
+
+    cout<<mainNodo<<endl;
+
+    /*
+    singleGraph.reset();
+    window.resize(280, 270);
+    window.setWindowTitle("Full Graph");
+    window.show();
     QMessageBox msgBox;
     msgBox.setText("Aqui pondria el grafo de los 100 tweets.....SI SUPIERA COMO HACERLO >:v");
-    msgBox.exec();
+    msgBox.exec();*/
 }
 vector<string> MainWindow::separateTweet(){
     string s = clickedTweetText.toStdString();
@@ -206,6 +261,33 @@ vector<string> MainWindow::separateTweet(){
     }
     return words;
 }
+
+vector<string> MainWindow::deleteWords(vector<string> v){
+    vector<string> returnVector=v;
+    for(int i=0;i<returnVector.size();i++){
+        string data =returnVector.at(i);
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+
+        for(int j=0; j<excludedWords.size();j++){
+            if(data==excludedWords.at(j)){
+                returnVector.erase(returnVector.begin() + i);
+            }
+        }
+    }
+    return returnVector;
+}
+
+vector<VerticeClass> MainWindow::checkDupes(vector<VerticeClass> v){
+    for(int i=0;i<v.size();i++){
+        for(int j=v.size()-1;j>=0;j--){
+            /*if(v.at(i)==v.at(j)){
+                v.erase(v.begin() + j);
+                //añadir 1 al nodo
+            }*/
+        }
+    }
+}
+
 void MainWindow::clear(){
     //test.reset();
     clickedTweetText="";

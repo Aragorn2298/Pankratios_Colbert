@@ -11,13 +11,14 @@ class VerticeClass
 {
 public:
     VerticeClass();
-    VerticeClass(int p, int x, int y, string n);
+    VerticeClass(int p, int x, int y, string n, bool mn);
     int peso;
     int ex;
     int ey;
     int ID;
     string name;
     vector<AristaClass*> aristas;
+    bool mainNodo;
 };
 
 #endif // VERTICECLASS_H

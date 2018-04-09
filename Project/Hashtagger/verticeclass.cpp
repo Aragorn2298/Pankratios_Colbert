@@ -7,8 +7,8 @@ VerticeClass::VerticeClass()
     ey=0;
     name="";
 }
-VerticeClass::VerticeClass(int p, int x, int y, string n){
-    peso=p;
+VerticeClass::VerticeClass(int p, int x, int y, string n, bool mn){
+    peso=1;
     ex=x;
     ey=y;
     ID=0;

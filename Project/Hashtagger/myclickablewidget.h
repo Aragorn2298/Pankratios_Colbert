@@ -27,7 +27,8 @@ public:
 
     QGraphicsScene* scene=new QGraphicsScene;
 
-    void agregarVertice(int p, int x, int y, string nombre);
+    void agregarVertice(int p, int x, int y, string nombre, bool mn);
+    void agregarVertice(VerticeClass* v);
     void agregarArista(int p, int from, int to);
     void eliminarVertice(int p);
     void eliminarArista(int p);

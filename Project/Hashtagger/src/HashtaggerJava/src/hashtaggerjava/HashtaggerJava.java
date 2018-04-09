@@ -55,6 +55,7 @@ public class HashtaggerJava {
         String date = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(Calendar.getInstance().getTime());
         String queryString;
         queryString = args[0];
+        int quantity=Integer.parseInt(args[1]);
         
         System.out.print("Busqueda: " + args[0]);
         
@@ -74,14 +75,14 @@ public class HashtaggerJava {
             //Twitter twitter = TwitterFactory.getSingleton();
             Query query = new Query(queryString + "+exclude:retweets");
             query.setResultType(Query.ResultType.recent);
-            query.count(100);
+            query.count(quantity);
             QueryResult result;
                 
             result = twitter.search(query);
             List<Status> tweets = result.getTweets();
             new File("Tweets/"+folderName+"_"+date).mkdir();
             
-            for(int i=0;i<100;i++){
+            for(int i=0;i<quantity;i++){
                 Status tweet = tweets.get(i);
                 String rawJSON = TwitterObjectFactory.getRawJSON(tweet);
                 String dirName = "Tweets/"+folderName+"_"+date+ "/"; 
