@@ -54,7 +54,7 @@ public:
     void updateJsonView(QString str);
     void setTweetsPath();
     void parseJson(const QModelIndex &index);
-    vector<string> separateTweet();
+    vector<string> separateTweet(string st);
     vector<string> deleteWords(vector<string> v);
     vector<VerticeClass> checkDupes(vector<VerticeClass> v);
     void clear();

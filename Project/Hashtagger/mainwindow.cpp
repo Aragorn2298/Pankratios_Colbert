@@ -174,11 +174,8 @@ void MainWindow::on_singleTweetBtn_clicked()
 
 
     //test.setAttribute(Qt::WA_DeleteOnClose);
-    vector<string> words=separateTweet();
+    vector<string> words=separateTweet(clickedTweetText.toStdString());
     vector<string> wordsFinal=deleteWords(words);
-
-    int posX=0;
-    int cont=2;
 
     int x=300;
     int y=100;
@@ -191,14 +188,6 @@ void MainWindow::on_singleTweetBtn_clicked()
             x+=50;
             y+=50;
         }
-        /*if(cont%2==0){
-            test.agregarVertice(0,posX, 150, wordsFinal.at(i),false);
-        }else{
-            test.agregarVertice(0,posX, 250, wordsFinal.at(i),false);
-        }
-        cont++;
-        posX+=50;*/
-
     }
 
     vector<string>::iterator it;
@@ -217,6 +206,41 @@ void MainWindow::on_singleTweetBtn_clicked()
 void MainWindow::on_drawGraphBtn_clicked()
 {
     /*
+    vector<string> words;
+    vector<string> wordsFinal;
+    vector<string>::iterator it;
+    int pos;
+    for(int i=0; i<jsonList.size()-1;i++){
+        QString j= jsonList.at(i);
+
+        words=separateTweet(j.toStdString());
+        wordsFinal=deleteWords(words);
+        int x=300;
+        int y=100;
+
+        for(int i=0; i<wordsFinal.size();i++){
+            if(wordsFinal.at(i)==mainNodo){
+                test.agregarVertice(0,100, 350, wordsFinal.at(i), true);
+            }else{
+                test.agregarVertice(0, x, y, wordsFinal.at(i),false);
+                x+=50;
+                y+=50;
+            }
+        }
+
+
+        it=std::find(wordsFinal.begin(),wordsFinal.end(),mainNodo);
+        //it++;
+        pos = distance(wordsFinal.begin(), it);
+
+        for(int i=1; i<=wordsFinal.size();i++){
+
+            test.agregarArista(100, pos+1, i);
+        }
+    }
+    test.draw();
+    test.show();
+    //-----------------------------
     vector<string> words=separateTweet();
     vector<string> wordsFinal=deleteWords(words);
 
@@ -267,8 +291,8 @@ void MainWindow::on_drawGraphBtn_clicked()
     msgBox.setText("Aqui pondria el grafo de los 100 tweets.....SI SUPIERA COMO HACERLO >:v");
     msgBox.exec();*/
 }
-vector<string> MainWindow::separateTweet(){
-    string s = clickedTweetText.toStdString();
+vector<string> MainWindow::separateTweet(string st){
+    string s = st;
     string str=s;
     string buf;
     stringstream ss(str);
