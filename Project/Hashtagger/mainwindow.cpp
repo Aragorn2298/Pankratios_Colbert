@@ -172,6 +172,7 @@ void MainWindow::on_singleTweetBtn_clicked()
 {
     test.resetCachedContent();
 
+
     //test.setAttribute(Qt::WA_DeleteOnClose);
     vector<string> words=separateTweet();
     vector<string> wordsFinal=deleteWords(words);

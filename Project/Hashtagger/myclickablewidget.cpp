@@ -125,4 +125,5 @@ void MyClickableWidget::reset(){
     cant=0;
     cantV=0;
     contName=0;
+    scene->update();
 }
