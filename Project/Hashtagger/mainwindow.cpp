@@ -20,10 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
         cout<<line;
         excludedWords.push_back(line);
     }
-    /*
-    for(int i=0;i<excludedWords.size();i++){
-        cout<<excludedWords.at(i)<<endl;
-    }*/
 
     ui->setupUi(this);
     modelFolders = new QStringListModel(this);
@@ -174,24 +170,46 @@ void MainWindow::on_jsonsView_doubleClicked(const QModelIndex &index)
 
 void MainWindow::on_singleTweetBtn_clicked()
 {
+    test.resetCachedContent();
+
+    //test.setAttribute(Qt::WA_DeleteOnClose);
     vector<string> words=separateTweet();
     vector<string> wordsFinal=deleteWords(words);
 
     int posX=0;
     int cont=2;
+
+    int x=300;
+    int y=100;
+
     for(int i=0; i<wordsFinal.size();i++){
-        if(cont%2==0){
+        if(wordsFinal.at(i)==mainNodo){
+            test.agregarVertice(0,100, 350, wordsFinal.at(i), true);
+        }else{
+            test.agregarVertice(0, x, y, wordsFinal.at(i),false);
+            x+=50;
+            y+=50;
+        }
+        /*if(cont%2==0){
             test.agregarVertice(0,posX, 150, wordsFinal.at(i),false);
         }else{
             test.agregarVertice(0,posX, 250, wordsFinal.at(i),false);
         }
         cont++;
-        posX+=50;
+        posX+=50;*/
+
     }
+
+    vector<string>::iterator it;
+    it=std::find(wordsFinal.begin(),wordsFinal.end(),mainNodo);
+    //it++;
+    int pos = distance(wordsFinal.begin(), it);
+
     for(int i=1; i<=wordsFinal.size();i++){
 
-        test.agregarArista(100, i, i+1);
+        test.agregarArista(100, pos+1, i);
     }
+    test.draw();
     test.show();
 }
 
